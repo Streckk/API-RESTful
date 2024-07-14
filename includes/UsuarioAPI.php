@@ -32,11 +32,13 @@
             $stmt->bind_param("ssssss", $nombre,$apellidos,$Edad,$correo,$usuario,$hashedPassword);
 
             if ($stmt->execute()) {
-                echo "Nuevo usuario creado correctamente.";
+                $stmt->close();
+                return true;
             } else {
-                echo "Error: " . htmlspecialchars($stmt->error);
+                $stmt->close();
+                http_response_code(500);
+                return false;
             }
-        $stmt->close();
         }
     }
 
